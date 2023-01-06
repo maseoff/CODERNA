@@ -37,6 +37,7 @@ if __name__ == "__main__":
             stripped_line = line.strip()
 
             if not stripped_line:
+                output_file.write("\n")
                 continue  # Skip blank lines
 
             path_to_lh, path_to_rh = stripped_line.split()
