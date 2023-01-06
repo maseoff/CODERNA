@@ -24,7 +24,7 @@ def progress_bar(current: int, total: int) -> None:
     [STATUS] [==========               ] 40%
     """
 
-    percent = int(current / total * 100)
+    percent = int(current / total * 100) if total != 0 else 100
     bars = percent // 4
 
     sys.stdout.write("\r")
