@@ -1,0 +1,11 @@
+# Existing Problems and ToDo
+
+1. Add the following rules when use function `pyformat(code: str) -> str`:
+
+    1.1. Control the renaming of variables. Don't forget about such constructions:
+    `from ... import ... as ...`
+
+    1.2. Control the unsused variables and imports
+
+2. Make sure that the code will be able to compile after using
+`pyformat(code: str) -> str`. There's no guarantee now.
