@@ -13,6 +13,8 @@ import sys
 from argparse import Namespace
 from typing import List, Self
 
+import common.utils.stdout as stdout
+
 
 class ArgumentValidator(object):
     """
@@ -37,6 +39,8 @@ class ArgumentValidator(object):
         self._args = args
         self._errors = []
 
+        stdout.message(title="VALIDATION", msg="Starting validation.")
+
         self.__validate_input()
         self.__validate_output()
 
@@ -47,6 +51,7 @@ class ArgumentValidator(object):
         Validates the input file.
         """
 
+        stdout.progress_bar(current=0, total=100, title="VALIDATION")
         if not os.path.exists(self._args.input):
             self._errors.append(
                 "The input file does not seem to exist. "
@@ -54,6 +59,7 @@ class ArgumentValidator(object):
             )
             return
 
+        stdout.progress_bar(current=25, total=100, title="VALIDATION")
         if not self.__is_valid_input_format():
             self._errors.append(
                 "The input file does not adhere to the required format. It is "
@@ -62,6 +68,7 @@ class ArgumentValidator(object):
             )
             return
 
+        stdout.progress_bar(current=50, total=100, title="VALIDATION")
         self.__validate_files_to_compare()
 
     def __is_valid_input_format(self: Self) -> bool:
@@ -150,6 +157,7 @@ class ArgumentValidator(object):
         Validates the output file
         """
 
+        stdout.progress_bar(current=75, total=100, title="VALIDATION")
         if os.path.exists(self._args.output) and not self._args.force:
             self._errors.append(
                 "The output file already exists at the specified path. Set "
@@ -163,12 +171,20 @@ class ArgumentValidator(object):
         then lists them to the console and exits the program.
         """
 
+        stdout.progress_bar(current=100, total=100, title="VALIDATION")
+        stdout.message(title="VALIDATION", msg="Receiving validation status.")
+
         for error in self._errors:
-            sys.stdout.write(f"[ERROR] {error}\n")
+            stdout.message(title="ERROR", msg=error)
 
         if self._errors:
-            sys.stdout.flush()
+            stdout.newline()
+            stdout.message(title="VALIDATION", msg="Status: FAIL.")
+            stdout.message(title="REQUIREMENT", msg="Fix the problems before continuing.")
             sys.exit(1)
+
+        stdout.message(title="VALIDATION", msg="Status: OK.")
+        stdout.newline()
 
         self._args = None
         self._errors = None

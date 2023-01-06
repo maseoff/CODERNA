@@ -4,7 +4,7 @@ not to change anything in this file. If any edits are needed, it is best
 to change the behavior of the functions.
 """
 
-import sys
+import common.utils.stdout as stdout
 
 from common.objects.parser import ARGUMENT_PARSER
 from common.objects.validator import ARGUMENT_VALIDATOR
@@ -14,22 +14,6 @@ from common.utils.metrics import calculate_metric
 
 
 ALWAYS_FORCE_WRITE = True
-
-
-def progress_bar(current: int, total: int) -> None:
-    """
-    An assistant function for creating a progress scale that is
-    displayed in the console. Look like this:
-
-    [STATUS] [==========               ] 40%
-    """
-
-    percent = int(current / total * 100) if total != 0 else 100
-    bars = percent // 4
-
-    sys.stdout.write("\r")
-    sys.stdout.write(f"[STATUS] [{('=' * bars).ljust(25)}] {percent}%")
-    sys.stdout.flush()
 
 
 if __name__ == "__main__":
@@ -43,10 +27,13 @@ if __name__ == "__main__":
     lines = get_total_lines(args.input)
     scores = []
 
+    stdout.message(title="ANALYSIS", msg="Starting to compare files.")
+    stdout.progress_bar(current=0, total=lines, title="ANALYSIS")
+
     with open(file=args.input, mode="r", encoding="utf-8") as input_file:
         output_file = open(file=args.output, mode="w", encoding="utf-8")
 
-        for lineno, line in enumerate(input_file):
+        for lineno, line in enumerate(input_file, start=1):
             stripped_line = line.strip()
 
             if not stripped_line:
@@ -66,7 +53,7 @@ if __name__ == "__main__":
             )
 
             output_file.write(f"{score}{'%' if args.percent else ''}\n")
-            progress_bar(current=lineno, total=lines)
+            stdout.progress_bar(current=lineno, total=lines, title="ANALYSIS")
 
     output_file.close()
-    progress_bar(current=lines, total=lines)
+    stdout.message(title="ANALYSIS", msg="Status: FINISHED.")
