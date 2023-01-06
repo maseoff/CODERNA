@@ -164,7 +164,7 @@ class ArgumentValidator(object):
         """
 
         for error in self._errors:
-            sys.stdout.write(f"[ERROR] {error}")
+            sys.stdout.write(f"[ERROR] {error}\n")
 
         if self._errors:
             sys.stdout.flush()
