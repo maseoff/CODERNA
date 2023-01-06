@@ -55,13 +55,11 @@
     <p align="justify">
         Input file example:
         <br>
-        <code>
-             C:\Users\me\Desktop\old.py C:\Users\me\Desktop\new.py
-             <br>
-             C:\Users\me\Desktop\cheated.py C:\Users\me\Desktop\original.py
-             <br>
-             C:\Users\me\Documents\hello.py C:\Users\me\Documents\world.py
-        </code>
+        <code>C:\Users\me\Desktop\old.py C:\Users\me\Desktop\new.py</code>
+        <br>
+        <code>C:\Users\me\Desktop\cheated.py C:\Users\me\Desktop\original.py</code>
+        <br>
+        <code>C:\Users\me\Documents\hello.py C:\Users\me\Documents\world.py</code>
     </p>
     <br>
     <p align="justify">
@@ -72,13 +70,11 @@
     <p align="justify">
         Output file example:
         <br>
-        <code>
-             0.67
-             <br>
-             1.0
-             <br>
-             0.2678
-        </code>
+        <code>0.67</code>
+        <br>
+        <code>1.0</code>
+        <br>
+        <code>0.2678</code>
     </p>
 </section>
 
@@ -119,12 +115,11 @@
         <br>
         Then, as already noted, the Levenshtein editorial distance search
         algorithm comes into play. Using it, the corresponding value is searched
-        for - let's call it <code>levenshtein_distance</code>. Adhering to the
-        same logic, we will name the formatted files as follows:
-        <code>fmt_lh</code> and <code>fmt_rh</code>. The further metric is
-        calculated as follows: <code>1 - levenshtein_distance / max(len(fmt_lh),
-        len(fmt_rh))</code>. The resulting value will be considered the
-        similarity value of the text.
+        for - let's call it <code>lev_dist</code>. Adhering to the same logic,
+        we will name the formatted files as follows: <code>fmt_lh</code> and
+        <code>fmt_rh</code>. The further metric is calculated as follows:
+        <code>1 - lev_dist / max(len(fmt_lh), len(fmt_rh))</code>.
+        The resulting value will be considered the similarity value of the text.
     </p>
 </section>
 
